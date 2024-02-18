@@ -1,9 +1,15 @@
 package com.example.trabajocrud;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+
+import java.io.IOException;
+
 //import ch.makery.address.MainApp;
 //import ch.makery.address.model.Person;
 public class PersonOverviewController {
@@ -27,12 +33,29 @@ public class PersonOverviewController {
     private Label birthdayLabel;
     // Reference to the main application.
     private MainApp mainApp;
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
+
+    @FXML
+    private BorderPane rootLayout;
+
+    
     public PersonOverviewController() {
+        try{
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(personOverview);
+
+            // Give the controller access to the main app.
+            this.setMainApp(mainApp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
