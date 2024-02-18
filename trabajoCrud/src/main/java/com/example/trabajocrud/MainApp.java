@@ -5,11 +5,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 public class MainApp extends Application {
     private Stage primaryStage;
-    private BorderPane rootLayout;
+    private AnchorPane rootLayout;
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -17,12 +18,14 @@ public class MainApp extends Application {
         initRootLayout();
         showPersonOverview();
     }
+
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-                    rootLayout = (BorderPane) loader.load();
+            loader.setLocation(MainApp.class.getResource("PersonOverview.fxml"));
+            rootLayout = (AnchorPane) loader.load();
+
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -38,10 +41,11 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
-                    AnchorPane personOverview = (AnchorPane) loader.load();
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
+            loader.setLocation(MainApp.class.getResource("PersonOverview.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Add person overview to root layout.
+            rootLayout.getChildren().add(personOverview);
         } catch (IOException e) {
             e.printStackTrace();
         }
