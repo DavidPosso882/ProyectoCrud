@@ -19,7 +19,7 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public Persona() {
+    public Persona(String hans, String muster) {
         this(null,null,null,null,null);
     }
 

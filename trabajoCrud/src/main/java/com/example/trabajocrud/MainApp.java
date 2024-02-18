@@ -2,12 +2,39 @@ package com.example.trabajocrud;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+
 public class MainApp extends Application {
+
+    private ObservableList<Persona> personData = FXCollections.observableArrayList();
+    /**
+     * Constructor
+     */
+    public MainApp() {
+        // Add some sample data
+        personData.add(new Persona("Hans", "Muster"));
+        personData.add(new Persona("Ruth", "Mueller"));
+        personData.add(new Persona("Heinz", "Kurz"));
+        personData.add(new Persona("Cornelia", "Meier"));
+        personData.add(new Persona("Werner", "Meyer"));
+        personData.add(new Persona("Lydia", "Kunz"));
+        personData.add(new Persona("Anna", "Best"));
+        personData.add(new Persona("Stefan", "Meier"));
+        personData.add(new Persona("Martin", "Mueller"));
+    }
+    /**
+     * Returns the data as an observable list of Persons.
+     * @return
+     */
+    public ObservableList<Persona> getPersonData() {
+        return personData;
+    }
     private Stage primaryStage;
     private AnchorPane rootLayout;
 

@@ -16,6 +16,7 @@ public class PersonaNatural extends Persona{
     }
 
     public PersonaNatural(StringProperty email, ObjectProperty<LocalDate> fechaNacimiento) {
+        super("Hans", "Muster");
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
     }
