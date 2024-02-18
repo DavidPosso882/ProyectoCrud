@@ -9,17 +9,18 @@ public class PersonaNatural extends Persona{
     private final StringProperty email;
     private final ObjectProperty<LocalDate> fechaNacimiento;
 
+
     public PersonaNatural(StringProperty nombre, StringProperty apellidos, StringProperty identificacion, StringProperty direccion, StringProperty telefono, StringProperty email, ObjectProperty<LocalDate> fechaNacimiento) {
         super(nombre, apellidos, identificacion, direccion, telefono);
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public PersonaNatural(StringProperty email, ObjectProperty<LocalDate> fechaNacimiento) {
-        super("Hans", "Muster");
-        this.email = email;
-        this.fechaNacimiento = fechaNacimiento;
+    public PersonaNatural(){
+        this(null,null,null,null,null,null,null);
     }
+
+
 
     public String getEmail() {
         return email.get();
