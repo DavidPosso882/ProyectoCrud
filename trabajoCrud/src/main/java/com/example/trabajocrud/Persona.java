@@ -1,6 +1,7 @@
 package com.example.trabajocrud;
 
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 
 public class Persona {
 
@@ -81,5 +82,13 @@ public class Persona {
 
     public void setTelefono(String telefono) {
         this.telefono.set(telefono);
+    }
+
+    public ObservableValue<String> firstNameProperty() {
+        return null;
+    }
+
+    public ObservableValue<String> lastNameProperty() {
+        return null;
     }
 }
