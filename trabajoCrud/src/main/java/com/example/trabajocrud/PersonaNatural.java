@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
 
-public class PersonaNatural extends Persona{
+public class PersonaNatural extends Person{
     private final StringProperty email;
     private final ObjectProperty<LocalDate> fechaNacimiento;
 

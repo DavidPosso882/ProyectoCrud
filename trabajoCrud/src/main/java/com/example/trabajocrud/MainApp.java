@@ -1,43 +1,42 @@
 package com.example.trabajocrud;
 
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-
+import java.io.IOException;
 public class MainApp extends Application {
+    private Stage primaryStage;
+    private BorderPane rootLayout;
 
-    private ObservableList<Persona> personData = FXCollections.observableArrayList();
+    private ObservableList<Person> personData = FXCollections.observableArrayList();
     /**
      * Constructor
      */
     public MainApp() {
         // Add some sample data
-        personData.add(new Persona("Hans", "Muster"));
-        personData.add(new Persona("Ruth", "Mueller"));
-        personData.add(new Persona("Heinz", "Kurz"));
-        personData.add(new Persona("Cornelia", "Meier"));
-        personData.add(new Persona("Werner", "Meyer"));
-        personData.add(new Persona("Lydia", "Kunz"));
-        personData.add(new Persona("Anna", "Best"));
-        personData.add(new Persona("Stefan", "Meier"));
-        personData.add(new Persona("Martin", "Mueller"));
+        personData.add(new Person("Hans", "Muster"));
+        personData.add(new Person("Ruth", "Mueller"));
+        personData.add(new Person("Heinz", "Kurz"));
+        personData.add(new Person("Cornelia", "Meier"));
+        personData.add(new Person("Werner", "Meyer"));
+        personData.add(new Person("Lydia", "Kunz"));
+        personData.add(new Person("Anna", "Best"));
+        personData.add(new Person("Stefan", "Meier"));
+        personData.add(new Person("Martin", "Mueller"));
     }
     /**
      * Returns the data as an observable list of Persons.
      * @return
      */
-    public ObservableList<Persona> getPersonData() {
+    public ObservableList<Person> getPersonData() {
         return personData;
     }
-    private Stage primaryStage;
-    private AnchorPane rootLayout;
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -45,14 +44,15 @@ public class MainApp extends Application {
         initRootLayout();
         showPersonOverview();
     }
-
+    /**
+     * Initializes the root layout.
+     */
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
-            rootLayout = (AnchorPane) loader.load();
-
+                    rootLayout = (BorderPane) loader.load();
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -69,10 +69,12 @@ public class MainApp extends Application {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("PersonOverview.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Add person overview to root layout.
-            rootLayout.getChildren().add(personOverview);
+                    AnchorPane personOverview = (AnchorPane) loader.load();
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(personOverview);
+            // Give the controller access to the main app.
+            PersonOverviewController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,5 +90,6 @@ public class MainApp extends Application {
         launch(args);
     }
 }
+
 
 

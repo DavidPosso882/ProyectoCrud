@@ -1,24 +1,17 @@
 package com.example.trabajocrud;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
-import java.io.IOException;
-
-//import ch.makery.address.MainApp;
-//import ch.makery.address.model.Person;
 public class PersonOverviewController {
     @FXML
-    private TableView<Persona> personTable;
+    private TableView<Person> personTable;
     @FXML
-    private TableColumn<Persona, String> firstNameColumn;
+    private TableColumn<Person, String> firstNameColumn;
     @FXML
-    private TableColumn<Persona, String> lastNameColumn;
+    private TableColumn<Person, String> lastNameColumn;
     @FXML
     private Label firstNameLabel;
     @FXML
@@ -33,29 +26,12 @@ public class PersonOverviewController {
     private Label birthdayLabel;
     // Reference to the main application.
     private MainApp mainApp;
-
-    @FXML
-    private BorderPane rootLayout;
-
-    
+    /**
+     * The constructor.
+     * The constructor is called before the initialize() method.
+     */
     public PersonOverviewController() {
-        try{
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
-
-            // Give the controller access to the main app.
-            this.setMainApp(mainApp);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
-
-
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -67,10 +43,15 @@ public class PersonOverviewController {
                 firstNameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
     }
-
+    /**
+     * Is called by the main application to give a reference back to itself.
+     *
+     * @param mainApp
+     */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         // Add observable list data to the table
         personTable.setItems(mainApp.getPersonData());
     }
 }
+
