@@ -58,9 +58,9 @@
                         <Label alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <Button layoutX="178.0" layoutY="369.0" mnemonicParsing="false" text="Nuevo" />
-                  <Button layoutX="249.0" layoutY="369.0" mnemonicParsing="false" text="Editar" />
-                  <Button layoutX="319.0" layoutY="369.0" mnemonicParsing="false" text="Eliminar" />
+                  <Button layoutX="160.0" layoutY="324.0" mnemonicParsing="false" text="Nuevo" />
+                  <Button layoutX="239.0" layoutY="324.0" mnemonicParsing="false" text="Editar" />
+                  <Button layoutX="312.0" layoutY="324.0" mnemonicParsing="false" text="Eliminar" />
                </children>
             </AnchorPane>
         </items>
