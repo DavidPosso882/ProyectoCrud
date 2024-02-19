@@ -2,13 +2,9 @@ package com.example.trabajocrud;
 
 import javafx.beans.property.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-/**
- * Model class for a Person.
- *
- * @author Marco Jakob
- */
-public class Person {
+public class Person implements Serializable {
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty street;
@@ -36,6 +32,13 @@ public class Person {
         this.city = new SimpleStringProperty("some city");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
+
+    public static Person fromLine(String line) {
+        String[] parts = line.split(",");
+        return new Person(parts[0], parts[1]);
+    }
+
+
     public String getFirstName() {
         return firstName.get();
     }
@@ -90,6 +93,11 @@ public class Person {
     public ObjectProperty<LocalDate> birthdayProperty() {
         return birthday;
     }
+
+    public String toLine() {
+        return getFirstName() + "," + getLastName();
+    }
+
 }
 
 

@@ -10,50 +10,50 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 public class MainApp extends Application {
+
     private Stage primaryStage;
     private BorderPane rootLayout;
-
     private ObservableList<Person> personData = FXCollections.observableArrayList();
-    /**
-     * Constructor
-     */
     public MainApp() {
-        // Add some sample data
-        personData.add(new Person("Hans", "Muster"));
-        personData.add(new Person("Ruth", "Mueller"));
-        personData.add(new Person("Heinz", "Kurz"));
-        personData.add(new Person("Cornelia", "Meier"));
-        personData.add(new Person("Werner", "Meyer"));
-        personData.add(new Person("Lydia", "Kunz"));
-        personData.add(new Person("Anna", "Best"));
-        personData.add(new Person("Stefan", "Meier"));
-        personData.add(new Person("Martin", "Mueller"));
+        // Intenta cargar los datos desde el archivo
+        loadDataFromFile("personData.txt");
+
+        // Si la lista de personas está vacía (lo que sucederá si el archivo no existe), agrega algunos datos quemados
+        if (personData.isEmpty()) {
+            personData = FXCollections.observableArrayList();
+            personData.add(new Person("David", "Posso"));
+            personData.add(new Person("Ruth", "Mueller"));
+            // Agrega más personas aquí...
+        }
     }
-    /**
-     * Returns the data as an observable list of Persons.
-     * @return
-     */
-    public ObservableList<Person> getPersonData() {
-        return personData;
-    }
+
     @Override
     public void start(Stage primaryStage) {
+        // Intenta cargar los datos desde el archivo antes de inicializar la interfaz de usuario
+        loadDataFromFile("personData.txt");
+
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("ALMACÉN");
         initRootLayout();
         showPersonOverview();
     }
-    /**
-     * Initializes the root layout.
-     */
+    public ObservableList<Person> getPersonData() {
+        return personData;
+    }
+
+
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
-                    rootLayout = (BorderPane) loader.load();
+            rootLayout = (BorderPane) loader.load();
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -62,15 +62,12 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-    /**
-     * Shows the person overview inside the root layout.
-     */
     public void showPersonOverview() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("PersonOverview.fxml"));
-                    AnchorPane personOverview = (AnchorPane) loader.load();
+            AnchorPane personOverview = (AnchorPane) loader.load();
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
             // Give the controller access to the main app.
@@ -80,23 +77,18 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-    /**
-     * Returns the main stage.
-     * @return
-     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
     public static void main(String[] args) {
         launch(args);
     }
-
     public boolean showPersonEditDialog(Person person) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("PersonEditDialog.fxml"));
-                    AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = (AnchorPane) loader.load();
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Person");
@@ -115,6 +107,33 @@ public class MainApp extends Application {
             e.printStackTrace();
             return false;
         }
+    }
+    public void saveDataToFile(String fileName) {
+        try (PrintWriter writer = new PrintWriter(fileName)) {
+            for (Person person : personData) {
+                writer.println(person.toLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadDataFromFile(String fileName) {
+        personData = FXCollections.observableArrayList();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                personData.add(Person.fromLine(line));
+            }
+        } catch (IOException e) {
+            // Si el archivo no existe, crea una nueva lista vacía
+            personData = FXCollections.observableArrayList();
+        }
+    }
+
+    public void stop() {
+        // Guarda los datos en el archivo al cerrar la aplicación
+        saveDataToFile("personData.txt");
     }
 
 }
