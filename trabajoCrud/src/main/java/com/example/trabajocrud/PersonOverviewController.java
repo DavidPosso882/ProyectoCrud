@@ -79,5 +79,12 @@ public class PersonOverviewController {
         }
     }
 
+    @FXML
+
+    private void handleDeletePerson() {
+        int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        personTable.getItems().remove(selectedIndex);
+    }
+
 }
 
