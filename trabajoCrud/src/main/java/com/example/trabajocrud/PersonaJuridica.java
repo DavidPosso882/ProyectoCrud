@@ -6,7 +6,7 @@ public class PersonaJuridica extends Person{
     private final StringProperty nit;
 
     public PersonaJuridica(StringProperty nombre, StringProperty apellidos, StringProperty identificacion, StringProperty direccion, StringProperty telefono, StringProperty nit) {
-        super(nombre, apellidos, identificacion, direccion, telefono);
+        super();
         this.nit = nit;
     }
 

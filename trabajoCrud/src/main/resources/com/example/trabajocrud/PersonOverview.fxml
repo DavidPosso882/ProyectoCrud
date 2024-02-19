@@ -58,7 +58,7 @@
                         <Label fx:id="streetLabel" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <Button layoutX="162.0" layoutY="311.0" mnemonicParsing="false" text="Nuevo" />
+                  <Button layoutX="162.0" layoutY="311.0" mnemonicParsing="false" onAction="#handleNewPerson" text="Nuevo" />
                   <Button layoutX="240.0" layoutY="311.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar" />
                   <Button layoutX="310.0" layoutY="311.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Eliminar" />
                </children>

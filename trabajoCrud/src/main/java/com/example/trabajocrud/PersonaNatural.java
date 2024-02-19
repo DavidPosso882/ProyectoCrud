@@ -11,7 +11,7 @@ public class PersonaNatural extends Person{
 
 
     public PersonaNatural(StringProperty nombre, StringProperty apellidos, StringProperty identificacion, StringProperty direccion, StringProperty telefono, StringProperty email, ObjectProperty<LocalDate> fechaNacimiento) {
-        super(nombre, apellidos, identificacion, direccion, telefono);
+        super();
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
     }

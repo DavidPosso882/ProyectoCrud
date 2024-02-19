@@ -18,7 +18,7 @@ public class Person {
     /**
      * Default constructor.
      */
-    public Person(StringProperty nombre, StringProperty apellidos, StringProperty identificacion, StringProperty direccion, StringProperty telefono) {
+    public Person() {
         this(null, null);
     }
     /**
