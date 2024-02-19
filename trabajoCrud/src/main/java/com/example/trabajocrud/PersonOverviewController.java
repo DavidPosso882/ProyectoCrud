@@ -39,9 +39,13 @@ public class PersonOverviewController {
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.
-        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().
-                firstNameProperty());
-        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        firstNameColumn.setCellValueFactory(
+                cellData -> cellData.getValue().firstNameProperty());
+        lastNameColumn.setCellValueFactory(
+                cellData -> cellData.getValue().lastNameProperty());
+        showPersonDetails(null);
+        personTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
     /**
      * Is called by the main application to give a reference back to itself.
